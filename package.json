@@ -9,12 +9,14 @@
     "cov": "test-mate --coverage"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "query-string": "^6.1.0"
   },
   "devDependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
     "eslint": "^5.4.0",
     "eslint-config-bcd-react": "^2.1.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-test-mate": "^2.0.2"
   },
   "repository": {
