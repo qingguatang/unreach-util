@@ -7,7 +7,7 @@ const debug = require('debug')('track');
 
 const getLoginUserId = cached(async() => {
   const data = await request.get('member', 'account/query');
-  return data && data.id;
+  return data && data.user && data.user.id;
 });
 
 
