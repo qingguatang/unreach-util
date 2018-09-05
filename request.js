@@ -1,11 +1,12 @@
 import axios from 'axios';
 import env from './env';
 
-const serverHost = (/(\.[-\w]+\.[-\w]+)$/).exec(window.location.hostname)[1];
-
+const serverHost = /(\.[-\w]+\.[-\w]+)$/.exec(window.location.hostname)[1];
 
 async function request({ method = 'get', scope, url, params, data }) {
-  url = `${getHost(scope)}/api/${url}`;
+  if (!url.startsWith('http')) {
+    url = `${getHost(scope)}/api/${url}`;
+  }
   if (method === 'get') {
     params = { ...params, ...data, _: Date.now() };
   }
