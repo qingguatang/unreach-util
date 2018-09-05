@@ -37,7 +37,7 @@ function postSync(scope, url, data) {
 }
 
 function getHost(scope) {
-  return env() === 'development' ?
+  return env === 'development' ?
     `https://${scope}.dev${serverHost}` :
     `https://${scope}${serverHost}`;
 }
