@@ -3,7 +3,7 @@ import env from './env';
 
 const serverHost = /(\.[-\w]+\.[-\w]+)$/.exec(window.location.hostname)[1];
 
-async function request({ method = 'get', scope, url, params, data }) {
+export async function request({ method = 'get', scope, url, params, data }) {
   if (!url.startsWith('http')) {
     url = `${getHost(scope)}/api/${url}`;
   }
@@ -20,17 +20,17 @@ async function request({ method = 'get', scope, url, params, data }) {
   return res.data;
 }
 
-async function get(scope, url, params) {
+export async function get(scope, url, params) {
   const res = await request({ scope, url, params, method: 'get' });
   return res.isSuccess && res.data;
 }
 
-async function post(scope, url, data) {
+export async function post(scope, url, data) {
   const res = await request({ scope, url, data, method: 'post' });
   return res.isSuccess;
 }
 
-function postSync(scope, url, data) {
+export function postSync(scope, url, data) {
   const xmlhttp = new XMLHttpRequest();
   xmlhttp.open('POST', `${getHost(scope)}/api/${url}`, false);
   xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');

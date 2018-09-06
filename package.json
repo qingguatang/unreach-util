@@ -1,6 +1,6 @@
 {
   "name": "unreach-util",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "前端工具基础库",
   "main": "index.js",
   "scripts": {

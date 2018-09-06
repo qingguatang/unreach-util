@@ -1,9 +1,9 @@
 import qs from 'query-string';
-import requestAPI from './request';
+import { request as requestAPI } from './request';
 
 
 async function request(method, path, data) {
-  const res = await requestAPI.request({
+  const res = await requestAPI({
     method: 'POST',
     scope: 'bmatch',
     url: 'pivot/gitee/request',

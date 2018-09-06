@@ -1,14 +1,11 @@
 import qs from 'querystring';
-import request from './request';
+import { get } from './request';
 import env from './env';
 
 const debug = require('debug')('track');
 
-const getLoginUserId = cached(async () => {
-  const data = await request.get(
-    'member',
-    'https://member.unreach.io/api/account/query'
-  );
+const getLoginUserId = cached(async() => {
+  const data = await get('member', 'https://member.unreach.io/api/account/query');
   return data && data.user && data.user.id;
 });
 
