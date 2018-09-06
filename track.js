@@ -1,11 +1,12 @@
 import qs from 'querystring';
-import { get } from './request';
+import { request } from './request';
 import env from './env';
 
 const debug = require('debug')('track');
 
 const getLoginUserId = cached(async() => {
-  const data = await get('member', 'https://member.unreach.io/api/account/query');
+  // 打点取用户id不管环境，直接取线上的
+  const data = await request({ url: 'https://member.unreach.io/api/account/query' });
   return data && data.user && data.user.id;
 });
 
