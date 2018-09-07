@@ -22,7 +22,7 @@
     "eslint-config-bcd-react": "^2.1.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-test-mate": "^2.0.2"
+    "react-test-mate": "^2.1.0"
   },
   "repository": {
     "type": "git",
