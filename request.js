@@ -1,11 +1,18 @@
 import axios from 'axios';
-import env from './env';
+import genv from './env';
 
 const serverHost = /(\.[-\w]+\.[-\w]+)$/.exec(window.location.hostname)[1];
 
-export async function request({ method = 'get', scope, url, params, data }) {
+export async function request({
+  method = 'get',
+  scope,
+  url,
+  params,
+  data,
+  env
+}) {
   if (!url.startsWith('http')) {
-    url = `${getHost(scope)}/api/${url}`;
+    url = `${getHost(scope, { env })}/api/${url}`;
   }
   if (method === 'get') {
     params = { ...params, ...data, _: Date.now() };
@@ -20,13 +27,13 @@ export async function request({ method = 'get', scope, url, params, data }) {
   return res.data;
 }
 
-export async function get(scope, url, params) {
-  const res = await request({ scope, url, params, method: 'get' });
+export async function get(scope, url, params, opts) {
+  const res = await request({ scope, url, params, method: 'get', ...opts });
   return res.isSuccess && res.data;
 }
 
-export async function post(scope, url, data) {
-  const res = await request({ scope, url, data, method: 'post' });
+export async function post(scope, url, data, opts) {
+  const res = await request({ scope, url, data, method: 'post', ...opts });
   return res.isSuccess;
 }
 
@@ -37,7 +44,8 @@ export function postSync(scope, url, data) {
   xmlhttp.send(JSON.stringify(data));
 }
 
-function getHost(scope) {
+function getHost(scope, opts = {}) {
+  const env = opts.env || genv;
   return env === 'development' ?
     `https://${scope}.dev${serverHost}` :
     `https://${scope}${serverHost}`;

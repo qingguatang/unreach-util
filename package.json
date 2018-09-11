@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint *.js",
-    "test": "test-mate",
-    "cov": "test-mate --coverage"
+    "test": "TEST_URL=http://dev.unreach.io:4000 test-mate",
+    "cov": "TEST_URL=http://dev.unreach.io:4000 test-mate --coverage"
   },
   "files": [
     "**/*.js"
@@ -22,7 +22,7 @@
     "eslint-config-bcd-react": "^2.1.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-test-mate": "^2.1.0"
+    "react-test-mate": "^2.2.0"
   },
   "repository": {
     "type": "git",

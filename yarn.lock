@@ -3977,9 +3977,9 @@ react-is@^16.4.2:
   version "16.4.2"
   resolved "http://registry.npm.taobao.org/react-is/download/react-is-16.4.2.tgz#84891b56c2b6d9efdee577cc83501dfc5ecead88"
 
-react-test-mate@^2.1.0:
-  version "2.1.0"
-  resolved "http://registry.npm.taobao.org/react-test-mate/download/react-test-mate-2.1.0.tgz#aafce648e3f45453327b117cec06461cabab3402"
+react-test-mate@^2.2.0:
+  version "2.2.0"
+  resolved "http://registry.npm.taobao.org/react-test-mate/download/react-test-mate-2.2.0.tgz#d192f17038dc134118bccb088f4bf9dd63b6788c"
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/plugin-proposal-class-properties" "^7.0.0"
