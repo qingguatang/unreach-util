@@ -85,8 +85,8 @@ function parseDate(str) {
     return invalid;
   }
   const m = match.slice(1, 8).map(v => parseInt(v, 10));
-  const d = new Date(m[1], m[2], m[3], m[4], m[5], m[6], m[7]);
-  const z = parseInt(m[8], 10);
+  const d = new Date(Date.UTC(m[0], m[1] - 1, m[2], m[3], m[4], m[5]));
+  const z = parseInt(match[8], 10);
   // exp +0800 -> should minus 8 hours
   const diff = z / 100 * 3600 * 1000;  // to milliseconds
   const time = d.getTime() - diff;

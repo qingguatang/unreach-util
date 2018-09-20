@@ -33,8 +33,12 @@ describe('date', () => {
   });
 
   it('parse date custom', () => {
-    const str = '2019-09-14T01:03:55.000+0000';
-    const date = $test.parseDate(str);
-    expect(date.getTime()).toBe(date.getTime());
+    const ds1 = '2019-09-14T01:03:55.000+0000';
+    const d1 = $test.parseDate(ds1);
+    expect(d1.getTime()).toBe(new Date(ds1).getTime());
+
+    const ds2 = '2019-09-14T01:03:55.000+0800';
+    const d2 = $test.parseDate(ds2);
+    expect(d2.getTime()).toBe(new Date(ds2).getTime());
   });
 });
