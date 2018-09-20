@@ -1,4 +1,4 @@
-import { format, friendly } from './date';
+import { format, friendly, $test } from './date';
 
 
 describe('date', () => {
@@ -30,5 +30,11 @@ describe('date', () => {
 
     const early = new Date('2010-7-2 18:12');
     expect(friendly(early)).toBe(format(early, 'YYYY年M月D日 H:m'));
+  });
+
+  it('parse date custom', () => {
+    const str = '2019-09-14T01:03:55.000+0000';
+    const date = $test.parseDate(str);
+    expect(date.getTime()).toBe(date.getTime());
   });
 });

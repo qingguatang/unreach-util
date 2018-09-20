@@ -1,8 +1,28 @@
+export function parse(str) {
+  if (!str) {
+    throw new Error('invalid date, receive null');
+  }
+  if (typeof str === 'number') {
+    return new Date(str);
+  }
+
+  if (isDate(str)) {
+    return str;
+  }
+
+  const date = new Date(str);
+  if (date.getTime()) {
+    return date;
+  }
+  return parseDate(str);
+}
+
+
 /**
- * refer http://momentjs.com/docs/#/displaying/format/
+ * @see http://momentjs.com/docs/#/displaying/format/
  */
 export function format(date, patern = 'YYYY-MM-DD') {
-  date = toDate(date);
+  date = parse(date);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -31,7 +51,7 @@ export function format(date, patern = 'YYYY-MM-DD') {
 
 const ONE_DAY = 3600 * 24 * 1000;
 export function friendly(date) {
-  date = toDate(date);
+  date = parse(date);
   const today = new Date();
   today.setHours(23, 59, 59, 999);
   const diff = today.getTime() - date.getTime();
@@ -44,15 +64,35 @@ export function friendly(date) {
 }
 
 
-function toDate(date) {
-  if (!date) {
-    throw new Error('invalid date, receive null');
-  }
-  if (typeof date === 'string') {
-    date = new Date(date);
-  }
-  return date;
+export default { parse, format, friendly };
+
+
+const toString = Object.prototype.toString;
+function isDate(d) {
+  return d && toString.call(d) === '[object Date]';
 }
 
 
-export default { format };
+/**
+ * @see https://www.ecma-international.org/ecma-262/5.1/#sec-15.9.1.15
+ */
+// YYYY-MM-DDTHH:mm:ss.sssZ
+const re = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d{3})([-+]\d{4})$/;
+const invalid = new Date('invalid');
+function parseDate(str) {
+  const match = re.exec(str);
+  if (!match) {
+    return invalid;
+  }
+  const m = match.slice(1, 8).map(v => parseInt(v, 10));
+  const d = new Date(m[1], m[2], m[3], m[4], m[5], m[6], m[7]);
+  const z = parseInt(m[8], 10);
+  // exp +0800 -> should minus 8 hours
+  const diff = z / 100 * 3600 * 1000;  // to milliseconds
+  const time = d.getTime() - diff;
+  return new Date(time);
+}
+
+
+const $test = { parseDate };
+export { $test };

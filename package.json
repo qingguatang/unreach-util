@@ -4,7 +4,7 @@
   "description": "前端工具基础库",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js",
+    "lint": "eslint .",
     "test": "TEST_URL=http://dev.unreach.io:4000 test-mate",
     "cov": "TEST_URL=http://dev.unreach.io:4000 test-mate --coverage"
   },
