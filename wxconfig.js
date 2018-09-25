@@ -81,7 +81,7 @@ function loadSdk() {
 
 
 async function loadJsSign() {
-  const data = { bizType: 'bmatch', url: window.location.href };
+  const data = { bizType: 'tech', url: window.location.href };
   const url = 'weixin/jsSignature?' + qs.stringify(data);
   const res = await request({ scope: 'member', method: 'POST', url, env: 'production' });
   return res && res.data;
