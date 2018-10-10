@@ -4,10 +4,12 @@ import env from './env';
 
 const debug = require('debug')('track');
 
-const getLoginUserId = cached(async() => {
+const getLoginUserId = cached(async () => {
   // 打点取用户id不管环境，直接取线上的
-  const data = await request({ url: 'https://member.unreach.io/api/account/query' });
-  return data && data.user && data.user.id;
+  const data = await request({
+    url: 'https://member.unreach.io/api/account/query'
+  });
+  return data && data.data && data.data.user && data.data.user.id;
 });
 
 export default async function track({ type, id, data }) {
@@ -53,12 +55,12 @@ async function getTrackUrl({ type, id, data, ext = '' }) {
 function cached(fn) {
   let called = false;
   let result = null;
-  return function() {
+  return async function() {
     if (called) {
       return result;
     }
     called = true;
-    result = fn.apply(this, arguments);
+    result = await fn.apply(this, arguments);
     return result;
   };
 }
