@@ -1,6 +1,5 @@
 import wxconfig from './wxconfig';
 
-
 export default async function share({ title, desc, link, image }) {
   await wxconfig();
 
@@ -17,18 +16,17 @@ export default async function share({ title, desc, link, image }) {
     cancel: logger('share cancel')
   };
 
-  window.console.log('init share', { title, desc, link, image });
-
-  // 分享到朋友圈
-  wx.onMenuShareTimeline(opts);
-  // 分享给好友
-  wx.onMenuShareAppMessage(opts);
-  // 分享到QQ
-  wx.onMenuShareQQ(opts);
-  // 分享到QQ空间
-  window.wx.onMenuShareQZone(opts);
+  wx.ready(() => {
+    // 分享到朋友圈
+    wx.onMenuShareTimeline(opts);
+    // 分享给好友
+    wx.onMenuShareAppMessage(opts);
+    // 分享到QQ
+    wx.onMenuShareQQ(opts);
+    // 分享到QQ空间
+    wx.onMenuShareQZone(opts);
+  });
 }
-
 
 function logger(msg) {
   return (...args) => {
