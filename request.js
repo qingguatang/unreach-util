@@ -1,7 +1,7 @@
 import axios from 'axios';
 import genv from './env';
 
-const serverHost = /(\.[-\w]+\.[-\w]+)$/.exec(window.location.hostname)[1];
+const serverHost = (/(\.[-\w]+\.[-\w]+)$/.exec(window.location.hostname) || {})[1];
 
 export async function request({
   method = 'get',
