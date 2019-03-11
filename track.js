@@ -14,23 +14,23 @@ const getLoginUserId = cached(async() => {
   return data && data.user && data.user.id;
 });
 
-export default async function track({ type, id, data }) {
+export default async function track({ type, id, data, extra }) {
   debug('track: [%s] %s', type, id);
-  const url = await getTrackUrl({ type, id, data, ext: '.gif' });
+  const url = await getTrackUrl({ type, id, data, ext: '.gif', extra });
   const img = new Image();
   img.src = url;
 }
 
-export async function trackSync({ type, id, data }) {
+export async function trackSync({ type, id, data, extra }) {
   debug('track sync: [%s] %s', type, id);
-  const url = await getTrackUrl({ type, id, data });
+  const url = await getTrackUrl({ type, id, data, extra });
   const xhr = new XMLHttpRequest();
   xhr.open('GET', url, false);
   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
   xhr.send();
 }
 
-async function getTrackUrl({ type, id, data, ext = '' }) {
+async function getTrackUrl({ type, id, data, ext = '', extra }) {
   type = type || 'click';
   const userId = await getLoginUserId();
   if (env === 'development') {
@@ -46,6 +46,7 @@ async function getTrackUrl({ type, id, data, ext = '' }) {
     type,
     id: id || '',
     data: JSON.stringify(data || {}),
+    ...extra,
     _t: Date.now()
   };
 
