@@ -1,6 +1,3 @@
-import ready from 'domready';
-
-
 const DOCUMENT_NODE_TYPE = 9;
 
 
@@ -15,10 +12,7 @@ if (typeof Element !== 'undefined' && !Element.prototype.matches) {
 }
 
 
-ready(init);
-
-
-function init() {
+export function trackReady() {
   delegate(document.body, 'click', '[data-track]', e => {
     const el = e.delegateTarget;
     const track = el.dataset.track;
@@ -67,7 +61,7 @@ function closest(element, selector, stop) {
 }
 
 
-export default function trackAction(category, action = 'click', label = null, value = null) {
+export function trackAction(category, action = 'click', label = null, value = null) {
   window._hmt && window._hmt.push(['_trackEvent', category, action, label, value]);   // eslint-disable-line
 }
 
