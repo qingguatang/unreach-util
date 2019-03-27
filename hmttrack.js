@@ -27,7 +27,6 @@ export function trackReady() {
 
 
 function getCategory(el) {
-  el = el.parentNode;
   const list = [];
   while (el && el.nodeType !== DOCUMENT_NODE_TYPE) {
     if (el.matches && el.matches('[data-track-scope]')) {
